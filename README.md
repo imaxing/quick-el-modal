@@ -1,6 +1,7 @@
-## 快捷弹窗
+# 快捷弹窗
 
-使用方式
+### 使用方式
+
 ```vue
 import Vue from 'vue'
 import QuickElModal from '@iamgx/quick-el-modal'
@@ -65,3 +66,8 @@ QuickElModal({
 })
 
 ```
+
+
+### live demo
+
+[![Edit quickel-modal-example (forked)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/quickel-modal-example-forked-59h7kp?fontsize=14&hidenavigation=1&theme=dark)
