@@ -144,7 +144,8 @@ export default {
           'update:fullscreen': v => (this.fullscreen = v),
           'update:title': v => (this.title = v),
           'update:disabled-keys': v => (this.buttonDisabledKeys = v),
-          'update:loading-keys': v => (this.buttonLoadingKeys = v)
+          'update:loading-keys': v => (this.buttonLoadingKeys = v),
+          ...on
         }
       })
     }
