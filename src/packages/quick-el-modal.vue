@@ -26,6 +26,14 @@ export default {
     buttons: [],
     callback: null
   }),
+  mounted() {
+    window.onhashchange = () => {
+      this.visible = false
+    }
+  },
+  beforeDestroy() {
+    window.onhashchange = null
+  },
   methods: {
     onClose() {
       const destroyState = () => {
