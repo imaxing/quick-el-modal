@@ -12,7 +12,7 @@
     "release": "npm run build && npm version patch && npm publish --access public"
   },
   "repository": {
-    "url": "https://github.com/Zenoo/quickModal.git"
+    "url": "https://github.com/imaxing/quick-el-modal"
   },
   "files": [
     "dist/quick-el-modal.umd.min.js",
