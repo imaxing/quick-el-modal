@@ -1,6 +1,6 @@
 {
   "name": "@iamgx/quick-el-modal",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "quick-el-modal",
   "private": false,
   "main": "./dist/quick-el-modal.umd.min.js",
