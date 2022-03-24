@@ -34,56 +34,6 @@ ElQuickModal({ title: '这是标题',  component: CusomComponent })
 
 ```
 
-## 弹窗按钮(结合一个打开表单并提交到后台然后关闭弹窗的一个业务场景)
-```javascript
-// form表单组件(form.vue)
-export default { 
-    name: 'ExampleForm', 
-    methods: {
-        // 当前方法传递的参数包含了modal示例
-        async handleSubmit({ modal }) {
-            const volid = await this.$refs.exampleForm.validate()
-            if (!volid) return false
-            
-            // 当表单验证通过后提交数据到后台, 首先禁用提交按钮
-            // 通过.sync修饰符的原理在组件内部直接修改loading 状态
-            this.$emit('update:button-loading-keys', ['submitButton']) // 或者 modal.loading = true
-            const rsp = await axios.post('path/to/ajax', {a: 1}) // 为了简单省略try catch
-            if (!rsp.data.success) return
-            this.$emit('update:visible', false)  // 或者 modal.visible = false
-            // 提交成功后需要关闭弹窗
-            // 可以通过update的方式, 也可以直接通过modal修改visible状态
-            // 把一些公用的状态放在弹窗内, 就不用在表单内单独定义状态了
-            // 这样在后台系统中, 经常使用到的通过弹窗打开某些组件的繁琐操作就可以比较简单的解决了
-        }
-    },
-    render: h => h('el-form', {ref: 'exampleForm'}, [h('el-form-item', {}, [h('el-input')])])
-}
-
-// 打开表单
-ElQuickModal({
-    title: '提交表单', 
-    component: require( 'path/to/form.vue').default, 
-    buttons: [ {   
-        text: '提交', 
-        name: 'submitButton', // name参数是为了在渲染的组件中修改按钮和loading的状态
-        confirm: true, // confirm为true的时候, 点击按钮会触发window.confirm事件
-        // 当callback的值为string类型, 点击按钮的时候会去当前(axample.vue)组件内的methods中寻找
-        // 使用string类型, 提交数据逻辑在组件内部处理
-        callback: 'handleConfirm',
-        // 当callback的值是function类型的时候, 点击按钮会直接调用callback, 并将modal和component的示例传回
-        // 使用function类型, 逻辑在callback中处理
-        callback: ({ modal, component }) => {
-             // const volid = await component.handleSubmit()
-             const volid = await component.$refs.exampleForm.validate()
-            if (!volid) return false
-            // ajax
-            modal.visible = false
-            this.$message.success('提交成功')
-        }
-    } ] 
-})
-```
 
 ## 配置
 - 参数传递时使用驼峰写法
@@ -109,7 +59,7 @@ ElQuickModal({
 | showCancelButton | 是否显示取消按钮 | boolean| false |
 
 
-## live demo
+## live demo(结合一个打开表单并提交到后台然后关闭弹窗的一个业务场景)
 [![Edit quickel-modal-example (forked)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/quickel-modal-example-forked-59h7kp?fontsize=14&hidenavigation=1&theme=dark)
 
 
