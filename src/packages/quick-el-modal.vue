@@ -18,6 +18,7 @@ export default {
     beforeClose: null,
     customClass: '',
     component: null,
+    componentIsTag: false,
     destroy: null,
     props: {},
     on: {},
@@ -96,6 +97,7 @@ export default {
       callback,
       component,
       onButtonClicked,
+      componentIsTag,
       onClose,
       on,
       modal
@@ -137,9 +139,24 @@ export default {
       )
     }
 
+    const events = {
+      callback: params => callback && callback(params || this),
+      'update:loading': v => (this.loading = v),
+      'update:buttons': v => (this.buttons = v),
+      'update:visible': v => (this.visible = v),
+      'update:fullscreen': v => (this.fullscreen = v),
+      'update:title': v => (this.title = v),
+      'update:disabled-keys': v => (this.buttonDisabledKeys = v),
+      'update:loading-keys': v => (this.buttonLoadingKeys = v),
+      ...on
+    }
+
     const renderContent = () => {
       if (typeof component === 'function') return component(h, this)
-      if (typeof component === 'string') return component
+      if (typeof component === 'string') {
+        if (!componentIsTag) return component
+        return h(component, { props, on: events })
+      }
 
       return h(component, {
         ref: 'modalChild',

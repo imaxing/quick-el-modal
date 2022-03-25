@@ -1,5 +1,5 @@
 <template>
-  <el-button @click="handleSubmit">测试</el-button>
+  <el-button @click="handleSubmit">测试组件</el-button>
 </template>
 
 <script>
@@ -9,6 +9,7 @@ export default {
   methods: {
     handleSubmit() {
       this.$emit('update:title', '修改标题')
+      this.$emit('update:visible', false)
     }
   }
 }
