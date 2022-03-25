@@ -153,8 +153,7 @@ export default {
       }
       if (typeof component === 'function') return component(h, this)
       if (typeof component === 'string') {
-        if (!componentIsTag) return component
-        return h(component, { props, on: events })
+        return componentIsTag ? h(component, { props, on: events }) : component
       }
 
       return h(component, { ref: 'modalChild', props, on: events })
