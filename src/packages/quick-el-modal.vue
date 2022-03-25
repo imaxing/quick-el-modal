@@ -139,40 +139,25 @@ export default {
       )
     }
 
-    const events = {
-      callback: params => callback && callback(params || this),
-      'update:loading': v => (this.loading = v),
-      'update:buttons': v => (this.buttons = v),
-      'update:visible': v => (this.visible = v),
-      'update:fullscreen': v => (this.fullscreen = v),
-      'update:title': v => (this.title = v),
-      'update:disabled-keys': v => (this.buttonDisabledKeys = v),
-      'update:loading-keys': v => (this.buttonLoadingKeys = v),
-      ...on
-    }
-
     const renderContent = () => {
+      const events = {
+        callback: params => callback && callback(params || this),
+        'update:loading': v => (this.loading = v),
+        'update:buttons': v => (this.buttons = v),
+        'update:visible': v => (this.visible = v),
+        'update:fullscreen': v => (this.fullscreen = v),
+        'update:title': v => (this.title = v),
+        'update:disabled-keys': v => (this.buttonDisabledKeys = v),
+        'update:loading-keys': v => (this.buttonLoadingKeys = v),
+        ...on
+      }
       if (typeof component === 'function') return component(h, this)
       if (typeof component === 'string') {
         if (!componentIsTag) return component
         return h(component, { props, on: events })
       }
 
-      return h(component, {
-        ref: 'modalChild',
-        props,
-        on: {
-          callback: params => callback && callback(params || this),
-          'update:loading': v => (this.loading = v),
-          'update:buttons': v => (this.buttons = v),
-          'update:visible': v => (this.visible = v),
-          'update:fullscreen': v => (this.fullscreen = v),
-          'update:title': v => (this.title = v),
-          'update:disabled-keys': v => (this.buttonDisabledKeys = v),
-          'update:loading-keys': v => (this.buttonLoadingKeys = v),
-          ...on
-        }
-      })
+      return h(component, { ref: 'modalChild', props, on: events })
     }
 
     return h(
