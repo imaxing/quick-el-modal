@@ -8,6 +8,7 @@ export default {
   data: () => ({ b: 2 }),
   methods: {
     handleSubmit() {
+      console.log(123)
       this.$emit('update:title', '修改标题')
       this.$emit('update:visible', false)
     }

@@ -63,7 +63,7 @@ export default {
       }
 
       const child =
-        (typeof this.component === 'function' ? this.$children[0].$children.pop() : this.$refs.modalChild) || {}
+        (typeof this.component === 'function' ? this.$children[0].$children.slice(-1)[0] : this.$refs.modalChild) || {}
 
       if (typeof button.callback === 'string') {
         child && child[button.callback] && child[button.callback]({ modal: this })

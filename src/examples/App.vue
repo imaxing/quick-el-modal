@@ -11,9 +11,8 @@ export default {
     test() {
       this.QuickElModalShow({
         title: '测试标题',
-        component: 'test',
-        componentIsTag: true,
-        showCancelButton: true
+        component: h => h('test'),
+        buttons: [{ text: 'log', callback: 'handleSubmit' }]
       })
     }
   }
