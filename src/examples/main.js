@@ -12,7 +12,9 @@ const store = new window.Vuex.Store({
     testGetter: state => state.test
   }
 })
-Vue.use(QuickElModal, { store })
+Vue.use(QuickElModal, {
+  prototype: { $store: store, a: 10 }
+})
 Vue.component(Test.name, Test)
 Vue.config.productionTip = false
 Vue.prototype.QuickElModalShow = QuickElModal
