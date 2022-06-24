@@ -2,14 +2,15 @@ import QuickElModal from './quick-el-modal'
 export default {
   install(Vue, opts = {}) {
     const { name = 'quickModal', prototype = {} } = opts
-
-    for (const key in prototype) {
-      Vue.prototype[key] = prototype[key]
-    }
-
     Vue.prototype[name] = options => {
       const ModalInstance = Vue.extend(QuickElModal)
-
+      for (const key in prototype) {
+        if (key === '$store') {
+          ModalInstance.prototype[key] = prototype[key]
+        } else {
+          Object.defineProperty(Vue.prototype, key, { value: prototype[key] })
+        }
+      }
       const instance = new ModalInstance({
         data: {
           ...options,
